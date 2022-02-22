@@ -1,7 +1,7 @@
 console.log("Welcome to Spotify");
 // initialize the variable 
 let songsIndex = 0;
-let audioElement = new Audio('song/1.mp3');
+let audioElement = new Audio('songs/1.mp3');
 let masterPlay = document.getElementById('masterPlay');
 let myProgressBar = document.getElementById('myProgressBar');
 let gif = document.getElementById('gif');
@@ -19,19 +19,14 @@ let songs = [
     { songsName: "Attention", filepath: "songs/9.mp3", coverPath: "covers/9.jpg" },
     { songsName: "See you again", filepath: "songs/10.mp3", coverPath: "covers/10.jpg" },
 ]
-songItems.forEach((element, i) => {
-
-    element.getElementsByTagName("img")[0].src = songs[i].coverPath;
-    element.getElementsByClassName("songName")[0].innerText = songs[i].songsName;
 
 
-})
 
 //   audioElement.play();
 // A pause and play click
 // a new event created
 masterPlay.addEventListener('click', () => {
-    if (audioElement.pause || audioElement.currentTime <= 0) {
+    if (audioElement.pause || audioElement.currentTime == 0) {
         audioElement.play();
         masterPlay.classlist.remove('fa-play-circle');
         masterPlay.classlist.add('fa-pause-circle');
@@ -63,7 +58,7 @@ const makeAllPlays = () => {
     })
 }
 
-array.from(document.getElementsByClassName("songItemPlay")).forEach((element) => {
+Array.from(document.getElementsByClassName("songItemPlay")).forEach((element) => {
     element.addEventListener("click", () => {
         console.log(e.target);
         songindex = parseInt(e.target.id)
