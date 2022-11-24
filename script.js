@@ -41,7 +41,7 @@ let songs = [
     coverPath: "covers/6.jpg",
   },
   {
-    songName: "On my way - Alan walker",
+    songName: "Stereo Hearts",
     filePath: "songs/2.mp3",
     coverPath: "covers/7.jpg",
   },
@@ -51,7 +51,7 @@ let songs = [
     coverPath: "covers/8.jpg",
   },
   {
-    songName: "All falls Down",
+    songName: "Night Changes",
     filePath: "songs/2.mp3",
     coverPath: "covers/9.jpg",
   },
