@@ -1,106 +1,149 @@
 console.log("Welcome to Spotify");
-// initialize the variable 
-let songsIndex = 0;
-let audioElement = new Audio('songs/1.mp3');
-let masterPlay = document.getElementById('masterPlay');
-let myProgressBar = document.getElementById('myProgressBar');
-let gif = document.getElementById('gif');
-let songItems = document.getElementById('songItems')
+
+// Initialize the Variables
+let songIndex = 0;
+let audioElement = new Audio("songs/1.mp3");
+let masterPlay = document.getElementById("masterPlay");
+let myProgressBar = document.getElementById("myProgressBar");
+let gif = document.getElementById("gif");
+let masterSongName = document.getElementById("masterSongName");
+let songItems = Array.from(document.getElementsByClassName("songItem"));
 
 let songs = [
-    { songsName: "Faded", filePath: "songs/1.mp3", coverPath: "covers/1.jpg" },
-    { songsName: "Alone", filepath: "songs/2.mp3", coverPath: "covers/2.jpg" },
-    { songsName: "On my way", filepath: "songs/3.mp3", coverPath: "covers/3.jpg" },
-    { songsName: "Stay", filepath: "songs/4.mp3", coverPath: "covers/4.jpg" },
-    { songsName: "Bad habits", filepath: "songs/5.mp3", coverPath: "covers/5.jpg" },
-    { songsName: "Spectre", filepath: "songs/6.mp3", coverPath: "covers/6.jpg" },
-    { songsName: "Sorry", filepath: "songs/7.mp3", coverPath: "covers/7.jpg" },
-    { songsName: "Closer", filepath: "songs/8.mp3", coverPath: "covers/8.jpg" },
-    { songsName: "Attention", filepath: "songs/9.mp3", coverPath: "covers/9.jpg" },
-    { songsName: "See you again", filepath: "songs/10.mp3", coverPath: "covers/10.jpg" },
-]
+  {
+    songName: "Warriyo - Mortals [NCS Release]",
+    filePath: "songs/1.mp3",
+    coverPath: "covers/1.jpg",
+  },
+  {
+    songName: "Beliver -Imagine Dragons",
+    filePath: "songs/2.mp3",
+    coverPath: "covers/2.jpg",
+  },
+  {
+    songName: "Faded - Alan Walker",
+    filePath: "songs/3.mp3",
+    coverPath: "covers/3.jpg",
+  },
+  {
+    songName: "See You Again",
+    filePath: "songs/4.mp3",
+    coverPath: "covers/4.jpg",
+  },
+  {
+    songName: "Dusk till dawn",
+    filePath: "songs/5.mp3",
+    coverPath: "covers/5.jpg",
+  },
+  {
+    songName: "Alone - Alan Walker",
+    filePath: "songs/2.mp3",
+    coverPath: "covers/6.jpg",
+  },
+  {
+    songName: "On my way - Alan walker",
+    filePath: "songs/2.mp3",
+    coverPath: "covers/7.jpg",
+  },
+  {
+    songName: "Stay - Justin Bieber",
+    filePath: "songs/2.mp3",
+    coverPath: "covers/8.jpg",
+  },
+  {
+    songName: "All falls Down",
+    filePath: "songs/2.mp3",
+    coverPath: "covers/9.jpg",
+  },
+  {
+    songName: "Sunflower",
+    filePath: "songs/4.mp3",
+    coverPath: "covers/10.jpg",
+  },
+];
 
+songItems.forEach((element, i) => {
+  element.getElementsByTagName("img")[0].src = songs[i].coverPath;
+  element.getElementsByClassName("songName")[0].innerText = songs[i].songName;
+});
 
+// Handle play/pause click
+masterPlay.addEventListener("click", () => {
+  if (audioElement.paused || audioElement.currentTime <= 0) {
+    audioElement.play();
+    masterPlay.classList.remove("fa-play-circle");
+    masterPlay.classList.add("fa-pause-circle");
+    gif.style.opacity = 1;
+  } else {
+    audioElement.pause();
+    masterPlay.classList.remove("fa-pause-circle");
+    masterPlay.classList.add("fa-play-circle");
+    gif.style.opacity = 0;
+  }
+});
+// Listen to Events
+audioElement.addEventListener("timeupdate", () => {
+  // Update Seekbar
+  progress = parseInt((audioElement.currentTime / audioElement.duration) * 100);
+  myProgressBar.value = progress;
+});
 
-//   audioElement.play();
-// A pause and play click
-// a new event created
-masterPlay.addEventListener('click', () => {
-    if (audioElement.pause || audioElement.currentTime == 0) {
-        audioElement.play();
-        masterPlay.classlist.remove('fa-play-circle');
-        masterPlay.classlist.add('fa-pause-circle');
-        gif.style.opacity = 1;
-    }
-    else {
-        audioElement.pause();
-        masterPlay.classlist.remove('fa-pause-circle');
-        masterPlay.classlist.add('fa-play-circle');
-        gif.style.opacity = 0;
-    }
-})
-// Listen to events
-audioElement.addEventListener('timeupdate', () => {
-
-    // update seekbar
-    progress = parseInt(audioElement.currentTime / audioElement.duration) * 100
-    myProgressBar.value = progress;
-})
-myProgressBar.addEventListener('change', () => {
-    audioElement.currentTime = myProgressBar.value * audioElement.duration / 100;
-
-})
+myProgressBar.addEventListener("change", () => {
+  audioElement.currentTime =
+    (myProgressBar.value * audioElement.duration) / 100;
+});
 
 const makeAllPlays = () => {
-    Array.from(document.getElementsByClassName('songItemPlay')).forEach((element) => {
-        element.classlist.remove('fa-pause-circle');
-        element.classlist.add('fa-play-circle');
-    })
-}
+  Array.from(document.getElementsByClassName("songItemPlay")).forEach(
+    (element) => {
+      element.classList.remove("fa-pause-circle");
+      element.classList.add("fa-play-circle");
+    }
+  );
+};
 
-Array.from(document.getElementsByClassName("songItemPlay")).forEach((element) => {
-    element.addEventListener("click", () => {
-        console.log(e.target);
-        songindex = parseInt(e.target.id)
-        e.target.classlist.remove('fa-play-circle');
-        e.target.classlist.add('fa-pause-circle');
-        audioElement.src = "songs/${index+1}.mp3";
-        audioElement.currentTime = 0;
-        audioElement.play();
-        masterPlay.classlist.remove('fa-play-circle');
-        masterPlay.classlist.add('fa-pause-circle');
-    })
-})
-document.getElementById("next").addEventListener;{
-    'click',( () => {
-        if (songsIndex >= 9) {
-            songsIndex = 0;
-        }
-        else {
-            songsIndex += 1; ement.src = "songs/${index+1}.mp3";
-            audioElement.currentTime
-        }
-        audioEl = 0;
-        audioElement.play();
-        masterPlay.classlist.remove('fa-play-circle');
-        masterPlay.classlist.add('fa-pause-circle');
+Array.from(document.getElementsByClassName("songItemPlay")).forEach(
+  (element) => {
+    element.addEventListener("click", (e) => {
+      makeAllPlays();
+      songIndex = parseInt(e.target.id);
+      e.target.classList.remove("fa-play-circle");
+      e.target.classList.add("fa-pause-circle");
+      audioElement.src = `songs/${songIndex + 1}.mp3`;
+      masterSongName.innerText = songs[songIndex].songName;
+      audioElement.currentTime = 0;
+      audioElement.play();
+      gif.style.opacity = 1;
+      masterPlay.classList.remove("fa-play-circle");
+      masterPlay.classList.add("fa-pause-circle");
+    });
+  }
+);
 
-    })
+document.getElementById("next").addEventListener("click", () => {
+  if (songIndex >= 9) {
+    songIndex = 0;
+  } else {
+    songIndex += 1;
+  }
+  audioElement.src = `songs/${songIndex + 1}.mp3`;
+  masterSongName.innerText = songs[songIndex].songName;
+  audioElement.currentTime = 0;
+  audioElement.play();
+  masterPlay.classList.remove("fa-play-circle");
+  masterPlay.classList.add("fa-pause-circle");
+});
 
-    var test = document.getElementById('previous')
-    test.addEventListener;{
-        'click', (() => {
-            if (songsIndex >= 0) {
-                songsIndex = 0;
-            }
-            else {
-                songsIndex += 1;
-            }
-            audioElement.src = "songs/${index+1}.mp3";
-            audioElement.currentTime = 0;
-            audioElement.play();
-            masterPlay.classlist.remove('fa-play-circle');
-            masterPlay.classlist.add('fa-pause-circle');
-
-        })
-    }}
+document.getElementById("previous").addEventListener("click", () => {
+  if (songIndex <= 0) {
+    songIndex = 0;
+  } else {
+    songIndex -= 1;
+  }
+  audioElement.src = `songs/${songIndex + 1}.mp3`;
+  masterSongName.innerText = songs[songIndex].songName;
+  audioElement.currentTime = 0;
+  audioElement.play();
+  masterPlay.classList.remove("fa-play-circle");
+  masterPlay.classList.add("fa-pause-circle");
+});
